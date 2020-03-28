@@ -7,9 +7,9 @@ ifeq ($(SIFIVE_GCC_PACK),yes)
 else
 	RISCV_NAME ?= riscv32-unknown-elf
 	ifeq ($(MULDIV),yes)
-		RISCV_PATH ?= /opt/riscv32im-elf-tc/
+		RISCV_PATH ?= /opt/gcc9/riscv32im/
 	else
-		RISCV_PATH ?= /opt/riscv32i-elf-tc/
+		RISCV_PATH ?= /opt/gcc9/riscv32i/
 	endif
 endif
 
