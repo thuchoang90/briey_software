@@ -152,14 +152,24 @@ void AES_init_ctx(struct AES_ctx* ctx, const uint8_t* key)
 // The round key is added to the state by an XOR function.
 static void AddRoundKey(uint8_t round, state_t* state, const uint8_t* RoundKey)
 {
-  uint8_t i,j;
-  for (i = 0; i < 4; ++i)
-  {
-    for (j = 0; j < 4; ++j)
-    {
-      (*state)[i][j] ^= RoundKey[(round * Nb * 4) + (i * Nb) + j];
-    }
-  }
+	uint8_t tmp;
+	tmp = round * Nb * 4;
+	(*state)[0][0] ^= RoundKey[tmp + 0];
+	(*state)[1][0] ^= RoundKey[tmp + Nb + 0];
+	(*state)[2][0] ^= RoundKey[tmp + 2 * Nb + 0];
+	(*state)[3][0] ^= RoundKey[tmp + 3 * Nb + 0];
+	(*state)[0][1] ^= RoundKey[tmp + 1];
+	(*state)[2][1] ^= RoundKey[tmp + 2 * Nb + 1];
+	(*state)[3][1] ^= RoundKey[tmp + 3 * Nb + 1];
+	(*state)[0][2] ^= RoundKey[tmp + 2];
+	(*state)[1][2] ^= RoundKey[tmp + Nb + 2];
+	(*state)[2][2] ^= RoundKey[tmp + 2 * Nb + 2];
+	(*state)[3][2] ^= RoundKey[tmp + 3 * Nb + 2];
+	(*state)[0][3] ^= RoundKey[tmp + 3];
+	(*state)[1][3] ^= RoundKey[tmp + Nb + 3];
+	(*state)[2][3] ^= RoundKey[tmp + 2 * Nb + 3];
+	(*state)[3][3] ^= RoundKey[tmp + 3 * Nb + 3];
+	(*state)[1][1] ^= RoundKey[tmp + Nb + 1];
 }
 
 // The SubBytes Function Substitutes the values in the
