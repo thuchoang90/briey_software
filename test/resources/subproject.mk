@@ -79,6 +79,7 @@ clean:
 	rm -f $(OBJDIR)/$(PROJ_NAME).map
 	rm -f $(OBJDIR)/$(PROJ_NAME).v
 	rm -f $(OBJDIR)/$(PROJ_NAME).asm
+	rm -f $(OBJDIR)/$(PROJ_NAME).bin
 	rm -f $(OBJDIR)/src/*.d
 	find $(OBJDIR) -type f -name '*.o' -print0 | xargs -0 -r rm
 

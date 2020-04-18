@@ -39,7 +39,7 @@ OBJS := $(OBJS:..=miaou)
 OBJS := $(addprefix $(OBJDIR)/,$(OBJS))
 
 
-all: $(OBJDIR)/$(PROJ_NAME).elf $(OBJDIR)/$(PROJ_NAME).hex $(OBJDIR)/$(PROJ_NAME).bin $(OBJDIR)/$(PROJ_NAME).asm $(OBJDIR)/$(PROJ_NAME).v
+all: $(OBJDIR)/$(PROJ_NAME).elf $(OBJDIR)/$(PROJ_NAME).hex $(OBJDIR)/$(PROJ_NAME).asm $(OBJDIR)/$(PROJ_NAME).v
 
 $(OBJDIR)/%.elf: $(OBJS) | $(OBJDIR)
 	$(RISCV_CC) $(CFLAGS) -o $@ $^ $(LDFLAGS) $(LIBS)
@@ -60,11 +60,11 @@ $(OBJDIR)/%.elf: $(OBJS) | $(OBJDIR)
 
 $(OBJDIR)/%.o: %.c
 	mkdir -p $(dir $@)
-	$(RISCV_CC) -c $(CFLAGS)  $(INC) -o $@ $^ /opt/riscv32im_vex/lib/gcc/riscv32-unknown-elf/8.3.0/libgcc.a
+	$(RISCV_CC) -c $(CFLAGS)  $(INC) -o $@ $^
 	
 $(OBJDIR)/%.o: %.cpp
 	mkdir -p $(dir $@)
-	$(RISCV_CC) -c $(CFLAGS)  $(INC) -o $@ $^ /opt/riscv32im_vex/lib/gcc/riscv32-unknown-elf/8.3.0/libgcc.a
+	$(RISCV_CC) -c $(CFLAGS)  $(INC) -o $@ $^	
 
 $(OBJDIR)/%.o: %.S
 	mkdir -p $(dir $@)
@@ -80,6 +80,7 @@ clean:
 	rm -f $(OBJDIR)/$(PROJ_NAME).v
 	rm -f $(OBJDIR)/$(PROJ_NAME).asm
 	rm -f $(OBJDIR)/$(PROJ_NAME).bin
+	rm -f $(OBJDIR)/src/*.d
 	find $(OBJDIR) -type f -name '*.o' -print0 | xargs -0 -r rm
 
 .SECONDARY: $(OBJS)
