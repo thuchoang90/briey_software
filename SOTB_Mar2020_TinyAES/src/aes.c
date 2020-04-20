@@ -333,6 +333,7 @@ static void Cipher(state_t* state, const uint8_t* RoundKey)
   // Add the First round key to the state before starting the rounds.
 //  print("\r\nStart state!\r\n");
 //  uart_state(UART, state);
+  GPIO_A_BASE->OUTPUT = 0x0001;
   AddRoundKey(0, state, RoundKey); 
 //  print("\r\nAfter 1st add round key!\r\n");
 //  uart_state(UART, state);
@@ -367,6 +368,7 @@ static void Cipher(state_t* state, const uint8_t* RoundKey)
   AddRoundKey(Nr, state, RoundKey);
 //  print("\r\nAfter last add round key!\r\n");
 //  	uart_state(UART, state);
+  GPIO_A_BASE->OUTPUT = 0x0000;
 }
 
 

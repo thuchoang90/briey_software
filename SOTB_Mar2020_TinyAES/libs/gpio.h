@@ -4,9 +4,9 @@
 
 typedef struct
 {
-  volatile uint16_t INPUT;
-  volatile uint16_t OUTPUT;
-  volatile uint16_t OUTPUT_ENABLE;
+  volatile uint32_t INPUT;
+  volatile uint32_t OUTPUT;
+  volatile uint32_t OUTPUT_ENABLE;
 } Gpio_Reg;
 
 
