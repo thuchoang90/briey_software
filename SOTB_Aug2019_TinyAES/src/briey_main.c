@@ -44,9 +44,13 @@ int main() {
 	TIMER_A->LIMIT = ~0;
 	TIMER_A->CLEARS_TICKS = 0x00010001;
 
-	test_encrypt_ecb();
-	test_encrypt_ecb_verbose();
-	test_encrypt_ecb_scan();
+	GPIO_A_BASE->OUTPUT_ENABLE = 0xFFFF;
+	GPIO_A_BASE->OUTPUT = 0x0000;
+//	test_encrypt_ecb();
+//	test_encrypt_ecb_verbose();
+	for (uint32_t i = 0; i < 640000; i++) {
+		test_encrypt_ecb_scan();
+	}
 
 	print("It's done, bruhh !\r\n");
 }
@@ -93,17 +97,17 @@ static void test_encrypt_ecb_verbose(void)
     // print text to encrypt, key and IV
     print("ECB encrypt verbose:\r\n");
 
-    print("\r\nplain text:\r\n");
+    print("plain text:\r\n");
     phex(plain_text);
 
-    print("\r\nkey:\r\n");
+    print("key:\r\n");
     phex(key);
 
     // print the resulting cipher as 4 x 16 byte strings
-    print("\r\nciphertext:\r\n");
     struct AES_ctx ctx;
     AES_init_ctx(&ctx, key);
     AES_ECB_encrypt(&ctx, plain_text);
+    print("ciphertext:\r\n");
     phex(plain_text);
     print("\r\n");
 }
@@ -153,7 +157,7 @@ static void test_encrypt_ecb_scan(void)
     uint8_t i;
 
     // 128bit key
-    uint8_t key[16] =        { (uint8_t) 0x2b, (uint8_t) 0x7e, (uint8_t) 0x15, (uint8_t) 0x16, (uint8_t) 0x28, (uint8_t) 0xae, (uint8_t) 0xd2, (uint8_t) 0xa6, (uint8_t) 0xab, (uint8_t) 0xf7, (uint8_t) 0x15, (uint8_t) 0x88, (uint8_t) 0x09, (uint8_t) 0xcf, (uint8_t) 0x4f, (uint8_t) 0x3c };
+    uint8_t key[16] =        { (uint8_t) 0x6a, (uint8_t) 0x51, (uint8_t) 0xa0, (uint8_t) 0xd2, (uint8_t) 0xd8, (uint8_t) 0x54, (uint8_t) 0x2f, (uint8_t) 0x68, (uint8_t) 0x96, (uint8_t) 0x0f, (uint8_t) 0xa7, (uint8_t) 0x28, (uint8_t) 0xab, (uint8_t) 0x51, (uint8_t) 0x33, (uint8_t) 0xa3 };
     // 512bit text
     uint8_t plain_text[16];
 
@@ -166,17 +170,17 @@ static void test_encrypt_ecb_scan(void)
 //            uart_put_hex8(UART,plain_text[i]);
         }
 
-    print("\r\nplain text:\r\n");
+    print("plain text:\r\n");
     phex(plain_text);
 
-    print("\r\nkey:\r\n");
+    print("key:\r\n");
     phex(key);
 
     // print the resulting cipher as 4 x 16 byte strings
-    print("\r\nciphertext:\r\n");
     struct AES_ctx ctx;
     AES_init_ctx(&ctx, key);
     AES_ECB_encrypt(&ctx, plain_text);
+    print("ciphertext:\r\n");
     phex(plain_text);
     print("\r\n");
 }
