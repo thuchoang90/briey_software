@@ -1,20 +1,11 @@
-# Set it to yes if you are using the sifive precompiled GCC pack
 SIFIVE_GCC_PACK ?= no
+RISCV_NAME ?= riscv64-unknown-elf
+RISCV_PATH ?= /opt/riscv/
 
-ifeq ($(SIFIVE_GCC_PACK),yes)
-	RISCV_NAME ?= riscv64-unknown-elf
-	RISCV_PATH ?= /opt/riscv/
-else
-	RISCV_NAME ?= riscv32-unknown-elf
-	ifeq ($(MULDIV),yes)
-		RISCV_PATH ?= /opt/gcc9/riscv32im/
-	else
-		RISCV_PATH ?= /opt/gcc9/riscv32i/
-	endif
-endif
-
+MULDIV ?= yes
 MABI=ilp32
 MARCH := rv32i
+
 ifeq ($(MULDIV),yes)
 	MARCH := $(MARCH)m
 endif
